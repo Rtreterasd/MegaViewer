@@ -1,0 +1,56 @@
+{
+  "name": "mega-viewer",
+  "version": "1.2.3",
+  "description": "Public MEGA media gallery",
+  "main": "src/main.cjs",
+  "author": "MEGA Viewer contributors",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.cjs",
+    "smoke": "electron . --smoke-test",
+    "test:ui": "electron test/catalogue-ui.cjs",
+    "build": "electron-builder --win portable --x64",
+    "build:installer": "electron-builder --win nsis --x64"
+  },
+  "dependencies": {
+    "megajs": "1.3.10"
+  },
+  "devDependencies": {
+    "electron": "44.3.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "local.megaviewer.desktop",
+    "productName": "MEGA Viewer",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "MEGA-Viewer-${version}-Windows.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MEGA Viewer",
+      "artifactName": "MEGA-Viewer-Setup-${version}.exe",
+      "installerLanguages": [
+        "ru_RU",
+        "en_US"
+      ],
+      "displayLanguageSelector": true,
+      "runAfterFinish": true
+    }
+  }
+}
