@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: http://127.0.0.1:*; media-src http://127.0.0.1:* blob:; connect-src http://127.0.0.1:*"
+    />
+    <title>MEGA Viewer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="titlebar">
+      <span>MEGA Viewer</span>
+      <div>
+        <button id="window-minimize" aria-label="Свернуть">—</button
+        ><button id="window-maximize" aria-label="Развернуть">□</button
+        ><button id="window-close" aria-label="Закрыть приложение">✕</button>
+      </div>
+    </div>
+    <aside>
+      <div class="brand">
+        <span class="logo">M</span>
+        <div>MEGA <b>Viewer</b><small>ВАША МЕДИАТЕКА</small></div>
+      </div>
+      <form id="linkForm">
+        <span class="link-icon">↗</span
+        ><input
+          id="link"
+          aria-label="Публичная ссылка MEGA"
+          placeholder="Вставьте ссылку MEGA.nz с ключом #…"
+          required
+        /><button id="open" class="primary">
+          Открыть ссылку <span>→</span>
+        </button>
+      </form>
+      <button id="libraryNav" class="quiet nav-active">▦ &nbsp; Каталог</button>
+      <button id="downloadsNav" class="quiet">
+        ↓ &nbsp; Загрузки <span id="downloadsBadge">0</span>
+      </button>
+      <div class="section-label">
+        НЕДАВНИЕ <button id="clearHistory" title="Удалить историю">×</button>
+      </div>
+      <div id="history"></div>
+      <div class="aside-bottom">
+        <span class="dot"></span> Публичные ссылки · без входа<button
+          id="clearCache"
+          class="quiet"
+        >
+          Очистить кэш превью
+        </button>
+      </div>
+    </aside>
+    <main>
+      <header>
+        <div id="message" role="status">
+          Фото, видео и папки — всё в одном месте.
+        </div>
+      </header>
+      <section class="library">
+        <div class="library-top">
+          <div class="folder-location">
+            <div class="folder-path">
+              <nav id="crumbs" aria-label="Путь к папке"></nav>
+              <h2 id="folderTitle">Ваша следующая коллекция</h2>
+              <div id="stats" class="muted">
+                Вставьте публичную ссылку в поле слева
+              </div>
+            </div>
+          </div>
+          <input
+            id="search"
+            type="search"
+            placeholder="⌕  Поиск в этой папке и вложенных"
+            aria-label="Поиск"
+          />
+        </div>
+        <div class="toolbar">
+          <div id="filters">
+            <button class="active" data-filter="all">Все файлы</button
+            ><button data-filter="photo">Фото</button
+            ><button data-filter="video">Видео</button
+            ><button data-filter="folder">Папки</button>
+          </div>
+          <div class="sort">
+            <select id="sort" aria-label="Сортировка">
+              <option value="name">По имени</option>
+              <option value="date">По дате</option>
+              <option value="size">По размеру</option>
+              <option value="type">По типу</option></select
+            ><button
+              id="direction"
+              aria-label="Изменить направление сортировки"
+            >
+              ↑
+            </button>
+          </div>
+        </div>
+        <div id="viewport">
+          <div id="grid"></div>
+          <div id="empty">
+            <div class="empty-icon">▧</div>
+            <h2>Медиатека начинается со ссылки</h2>
+            <p>
+              Откройте публичную папку MEGA,<br />чтобы просматривать её как
+              галерею.
+            </p>
+          </div>
+        </div>
+        <footer>
+          <span id="shown">Готово к просмотру</span
+          ><span>Локальный кэш · Потоковое видео</span>
+        </footer>
+      </section>
+      <section id="downloadsPanel" hidden>
+        <div class="downloads-heading">
+          <div>
+            <h2>Загрузки</h2>
+            <p class="muted">
+              Файлы сохраняются в выбранную вами папку. Во время просмотра
+              скачивание ждёт, чтобы не мешать видео.
+            </p>
+          </div>
+          <button id="backToLibrary" class="quiet">В каталог</button>
+        </div>
+        <div id="downloadsList"></div>
+      </section>
+    </main>
+    <dialog id="viewer">
+      <div class="viewer-bar">
+        <div>
+          <strong id="mediaTitle"></strong><small id="mediaInfo"></small>
+        </div>
+        <button id="fullscreen" title="Полный экран">⛶</button
+        ><button id="close" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="stage">
+        <button id="prev" aria-label="Предыдущее">‹</button>
+        <div id="media"></div>
+        <button id="next" aria-label="Следующее">›</button>
+      </div>
+      <div id="mediaStatus" role="status"></div>
+      <div class="media-actions">
+        <button id="retryMedia" class="quiet">↻ Повторить загрузку</button
+        ><button id="downloadMedia" class="quiet">↓ Скачать файл</button>
+      </div>
+    </dialog>
+    <script src="renderer.js"></script>
+  </body>
+</html>
