@@ -1,4 +1,4 @@
-# MEGA Viewer 1.2.3
+# MEGA Viewer
 
 Windows x64-приложение для публичных ссылок MEGA.nz. Electron + MEGAJS, русский тёмный интерфейс, без входа в аккаунт. Веб-страницы MEGA не парсятся.
 
